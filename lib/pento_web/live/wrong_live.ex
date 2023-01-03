@@ -1,34 +1,43 @@
 defmodule PentoWeb.WrongLive do
   use PentoWeb, :live_view
 
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
     {:ok,
-     assign(socket,
+     assign(
+       socket,
        score: 0,
        random_number: Enum.random(1..10),
        message: "Make a guess:",
-       answer: nil
+       answer: nil,
+       session_id: session["live_socket_id"]
      )}
   end
 
   def render(assigns) do
     ~H"""
-    <h1>Yourscore:<%= @score%></h1>
+    <h1>Your score: <%= @score %></h1>
+
     <h2>
-      <%= @message%>
+      <%= @message %>
     </h2>
 
-    <%= if @answer == :right do%>
-      <%= live_patch "Try Again", to: Routes.live_path(@socket, __MODULE__) , replace: true %>
+    <%= if @answer == :right do %>
+      <%= live_patch "Try Again", to: Routes.live_path(@socket, __MODULE__), replace: true %>
 
-      <% else %>
+    <% else %>
 
       <h2>
-      <%= for n <- 1..10 do %>
-        <a href="#" phx-click="guess" phx-value-number={n} ><%=n %></a>
-      <% end %>
-    </h2>
-    <% end%>
+        <%= for n <- 1..10 do %>
+          <a href="#" phx-click="guess" phx-value-number={n}><%= n %></a>
+        <% end %>
+        <pre>
+          <%= @current_user.email %>
+          <%= @session_id %>
+        </pre>
+      </h2>
+
+    <% end %>
+
 
     """
   end
