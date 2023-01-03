@@ -28,7 +28,7 @@ defmodule PentoWeb.WrongLive do
         <a href="#" phx-click="guess" phx-value-number={n} ><%=n %></a>
       <% end %>
     </h2>
-    <%= end%>
+    <% end%>
 
     """
   end
