@@ -15,11 +15,44 @@ defmodule PentoWeb.WrongLive do
 
   def render(assigns) do
     ~H"""
-    <h1>Your score: <%= @score %></h1>
+    <style>
+      h1 {
+        color: blue;
+      }
 
-    <h2>
-      <%= @message %>
-    </h2>
+      a {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        margin: 0.5rem;
+        text-decoration: none;
+        background-color: gray;
+        color: white;
+      }
+
+      a:hover {
+        background-color: darkgray;
+      }
+
+      .score {
+        text-align: center;
+      }
+
+      .username {
+        color: green;
+      }
+
+      .session_id {
+        color: red;
+      }
+    </style>
+
+    <div class="score">
+      <h1>Your score: <%= @score %></h1>
+
+      <h2>
+        <%= @message %>
+      </h2>
+    </div>
 
     <%= if @answer == :right do %>
       <%= live_patch "Try Again", to: Routes.live_path(@socket, __MODULE__), replace: true %>
@@ -30,13 +63,13 @@ defmodule PentoWeb.WrongLive do
         <%= for n <- 1..10 do %>
           <a href="#" phx-click="guess" phx-value-number={n}><%= n %></a>
         <% end %>
-        <div>
-          <%= @current_user.username %>
-        </div>
-        <div>
-          <%= @session_id %>
-        </div>
       </h2>
+      <div class="username">
+        <%= @current_user.username %>
+      </div>
+      <div class="session_id">
+        <%= @session_id %>
+      </div>
 
     <% end %>
     """
