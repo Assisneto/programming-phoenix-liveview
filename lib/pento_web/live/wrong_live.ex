@@ -30,15 +30,15 @@ defmodule PentoWeb.WrongLive do
         <%= for n <- 1..10 do %>
           <a href="#" phx-click="guess" phx-value-number={n}><%= n %></a>
         <% end %>
-        <pre>
-          <%= @current_user.email %>
+        <div>
+          <%= @current_user.username %>
+        </div>
+        <div>
           <%= @session_id %>
-        </pre>
+        </div>
       </h2>
 
     <% end %>
-
-
     """
   end
 
